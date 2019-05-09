@@ -1,0 +1,98 @@
+calculon> def x = 10;
+x : IntDat(10)
+calculon> def addx = @n n+x;
+addx : Closure(n, <fun>)
+calculon> show addx;
+Closure(param_name: n, varmap={addx: Closure(n, <fun>), x: IntDat(10)} code=
+Add
+  Varname(n)
+  Varname(x)
+)
+calculon> def maxx = @b max b x;
+maxx : Closure(b, <fun>)
+calculon> show maxx;
+Closure(param_name: b, varmap={addx: Closure(n, <fun>), maxx: Closure(b, <fun>), x: IntDat(10)} code=
+Apply
+  .func_expr:
+    Apply
+      .func_expr:
+        Varname(max)
+      .param_expr:
+        Varname(b)
+  .param_expr:
+    Varname(x)
+)
+calculon> undef x;
+calculon> show addx;
+Closure(param_name: n, varmap={addx: Closure(n, <fun>), x: IntDat(10)} code=
+Add
+  Varname(n)
+  Varname(x)
+)
+calculon> show maxx;
+Closure(param_name: b, varmap={addx: Closure(n, <fun>), maxx: Closure(b, <fun>), x: IntDat(10)} code=
+Apply
+  .func_expr:
+    Apply
+      .func_expr:
+        Varname(max)
+      .param_expr:
+        Varname(b)
+  .param_expr:
+    Varname(x)
+)
+calculon> def max = @a @b if a>b then a else b;
+max : Closure(a, <fun>)
+calculon> show max;
+Closure(param_name: a, varmap={addx: Closure(n, <fun>), max: Closure(a, <fun>), maxx: Closure(b, <fun>)} code=
+Lambda( b )
+  Cond
+    .if_expr:
+      Greater
+        Varname(a)
+        Varname(b)
+    .then_expr:
+      Varname(a)
+    .else_expr:
+      Varname(b)
+)
+calculon> def divxy = @x @y @z if y then z else x/y;
+divxy : Closure(x, <fun>)
+calculon> show divxy;
+Closure(param_name: x, varmap={addx: Closure(n, <fun>), divxy: Closure(x, <fun>), max: Closure(a, <fun>), maxx: Closure(b, <fun>)} code=
+Lambda( y )
+  Lambda( z )
+    Cond
+      .if_expr:
+        Varname(y)
+      .then_expr:
+        Varname(z)
+      .else_expr:
+        Div
+          Varname(x)
+          Varname(y)
+)
+calculon> def fact = @n if n=1 then 1 else n*(fact (n-1));
+fact : Closure(n, <fun>)
+calculon> show fact;
+Closure(param_name: n, varmap={addx: Closure(n, <fun>), divxy: Closure(x, <fun>), fact: Closure(n, <fun>), max: Closure(a, <fun>), maxx: Closure(b, <fun>)} code=
+Cond
+  .if_expr:
+    Equal
+      Varname(n)
+      IntExp(1)
+  .then_expr:
+    IntExp(1)
+  .else_expr:
+    Mul
+      Varname(n)
+      Apply
+        .func_expr:
+          Varname(fact)
+        .param_expr:
+          Sub
+            Varname(n)
+            IntExp(1)
+)
+calculon> 
+That was so terrible I think you gave me cancer!
